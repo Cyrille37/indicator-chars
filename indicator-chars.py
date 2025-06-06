@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Hacked by Cyrille37 on 2016-02-03
@@ -45,8 +45,10 @@ import subprocess
 #import appindicator
 
 # sudo apt-get install gir1.2-appindicator3
+
 import gi
 gi.require_version('Gtk', '3.0')
+
 try:
 	gi.require_version('AppIndicator3', '0.1')
 	from gi.repository import AppIndicator3 as appindicator
