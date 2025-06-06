@@ -37,7 +37,7 @@ Install
 
 - Checkout source code
 
-- Create ~/.indicator-chars
+- Create ~/.indicator-chars (from `conf-example.indicator-chars` file)
 
   - Each row corresponds to a set of chars
 
