@@ -58,14 +58,13 @@ except ImportError:
 from gi.repository import Gtk as gtk, Gdk, GLib, GObject, Gio as gio
 
 APP_NAME = 'indicator-chars'
-APP_VERSION = '0.3'
+APP_VERSION = '0.4'
 
 class IndicatorChars:
     CHARS_PATH = os.path.join(os.getenv('HOME'), '.indicator-chars')
     SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-    submenu_title_pattern = re.compile(r'\[([^]]+)\] *')
-    description_pattern = re.compile(r' *(\([^)]+\)) *')
+    line_pattern = re.compile(r'^(\[(.*)\])?(.*)$')
 
     def __init__(self):
         self.ind = appindicator.Indicator.new(
@@ -99,34 +98,30 @@ class IndicatorChars:
         menu = gtk.Menu()
 
         for charLine in charDef:
-            charLine = str(charLine).strip()
+            charLine = charLine.strip()
             if charLine == '' :
             	continue
-            submenu_match = self.submenu_title_pattern.match(charLine)
-            if submenu_match:
-                submenu_title = submenu_match.group(1)
-                # remove title part from remainder:
-                charLine = charLine[submenu_match.end():]
-            else:
-                submenu_title = ''.join(
-                    self.description_pattern.split(charLine)[::2])
-            parentItem = self.create_menu_item(submenu_title)
-            subMenu = gtk.Menu()
-            while charLine:
-                char = charLine[0]
-                charLine = charLine[1:]
-                description_match = self.description_pattern.match(charLine)
-                if description_match:
-                    item_title = char + ' ' + description_match.group(1)
-                    # remove description part from remainder:
-                    charLine = charLine[description_match.end():]
-                else:
-                    item_title = char
-                subItem = self.create_menu_item(item_title)
-                subItem.connect("activate", self.on_char_click, char)
-                subMenu.append(subItem)
-            parentItem.set_submenu(subMenu)
-            menu.append(parentItem)
+            result = self.line_pattern.search(charLine)
+            if not result :
+                print('ERROR:','bad line format')
+                continue
+            if result.group(2) :
+                #print('-> in a sub-menu')
+                submenu_title = result.group(2)
+                parentItem = self.create_menu_item(submenu_title)
+                menu.append(parentItem)
+                subMenu = gtk.Menu()
+                parentItem.set_submenu(subMenu)
+                for char in list(result.group(3)) :
+                    subItem = self.create_menu_item(char)
+                    subItem.connect("activate", self.on_char_click, char)
+                    subMenu.append(subItem)
+            else :
+                #print('-> in main-menu')
+                for char in list(result.group(3)) :
+                    subMenu = self.create_menu_item(char)
+                    subMenu.connect("activate", self.on_char_click, char)
+                    menu.append(subMenu)
 
         menu.append(gtk.SeparatorMenuItem())
         quit_item = self.create_menu_item('Quit')
