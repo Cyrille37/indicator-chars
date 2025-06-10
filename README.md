@@ -7,6 +7,8 @@ App indicator to provide a menu with (potentially funny UTF-8) characters for si
 
 Create a file .indicator-chars in your home directory with lines of characters to be selectable.
 
+![screenshot](screenshot.png)
+
 ## Install
 
 - Checkout source code
