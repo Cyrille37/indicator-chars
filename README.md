@@ -7,15 +7,14 @@ App indicator to provide a menu with (potentially funny UTF-8) characters for si
 
 Create a file .indicator-chars in your home directory with lines of characters to be selectable.
 
-![screenshot](screenshot.png)
+![screenshot](screenshot01.jpg)
 
 ## Install
 
-- Checkout source code
-
+- Download ZIP archive
+  - at https://github.com/Cyrille37/indicator-chars/releases
 - install `AppIndicator3` package
-    - `sudo apt install gir1.2-appindicator3-0.1 `
-
+  - `sudo apt install gir1.2-appindicator3-0.1 `
 - Create ~/.indicator-chars (from `conf-example.indicator-chars` file)
   - Each row corresponds to a set of chars
     - Optional submenu title prefix: `[title]`
