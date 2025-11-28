@@ -13,12 +13,15 @@ Create a file .indicator-chars in your home directory with lines of characters t
 
 - Checkout source code
 
+- install `AppIndicator3` package
+    - `sudo apt install gir1.2-appindicator3-0.1 `
+
 - Create ~/.indicator-chars (from `conf-example.indicator-chars` file)
   - Each row corresponds to a set of chars
     - Optional submenu title prefix: `[title]`
     - remove any unused spaces
   - Make sure to use UTF-8 encoding
-- Put indicator-chars.py into `auto start`.
+- Put indicator-chars.py into `auto start` to get it on your dashboard bar
 
 ## Open issues
 
@@ -30,8 +33,6 @@ Create a file .indicator-chars in your home directory with lines of characters t
 ```
 
 # Changes
-
-Cyrille37's fork:
 
 2025-06-10
 
@@ -46,6 +47,7 @@ Cyrille37's fork:
 
 2016-02-03
 
+- Cyrille37's fork
 - Some changes to make indicator-chars works on Ubuntu 12.04LTS with Unity 2D
 - replace the custom icon with a theme icon name
 - add a char copy into Clipboard(selection="CLIPBOARD")
@@ -86,3 +88,4 @@ Some standard sources
 Pour corriger le problème, vous devez :
 1. **Utiliser des emojis standard** (sans VS16).
 2. **Éviter les combinaisons non standard**.
+
